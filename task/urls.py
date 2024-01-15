@@ -9,7 +9,7 @@ from task.views import (
     TaskCreateView,
     TaskUpdateView,
     TaskDeleteView,
-    toggle_task
+    ToggleTaskView
 )
 
 urlpatterns = [
@@ -51,7 +51,7 @@ urlpatterns = [
     ),
     path(
         "tasks/<int:pk>/toggle/",
-        toggle_task,
+        ToggleTaskView.as_view(),
         name="task-toggle"
     )
 ]
