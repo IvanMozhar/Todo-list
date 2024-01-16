@@ -4,7 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.template import loader
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import generic, View
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_POST
 
 from task.forms import TaskForm
 from task.models import Task, Tag
@@ -60,8 +63,8 @@ class TagDeleteView(generic.DeleteView):
 
 
 class ToggleTaskView(View):
-    @staticmethod
-    def get(request, pk):
+
+    def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
         task.is_completed = not task.is_completed
         task.save()
