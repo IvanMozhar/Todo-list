@@ -20,9 +20,15 @@
         <a href="{% url 'task:task-update' task.id %}" class="btn btn-primary">Update</a>
         <a href="{% url 'task:task-delete' task.id %}" class="btn btn-danger">Delete</a>
         {% if task.is_completed %}
-          <a href="{% url 'task:task-toggle' task.id %}" class="btn btn-success">Undo</a>
+          <form action="{% url 'task:task-toggle' task.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Undo</button>
+          </form>
         {% else %}
-          <a href="{% url 'task:task-toggle' task.id %}" class="btn btn-success">Complete</a>
+          <form action="{% url 'task:task-toggle' task.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Complete</button>
+          </form>
         {% endif %}
       </li>
     {% endfor %}
